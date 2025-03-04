@@ -1,0 +1,553 @@
+/* 
+* Fitness Blog - Main Stylesheet
+*/
+
+:root {
+    --primary-color: #7c4dff;
+    --primary-hover: #6a3ff5;
+    --secondary-color: #ff4081;
+    --secondary-hover: #f50057;
+    --text-color: #333;
+    --light-text: #fff;
+    --dark-bg: #121212;
+    --light-bg: #f9f9f9;
+    --gray-color: #6c757d;
+    --border-color: #e9ecef;
+    
+    /* Category Colors */
+    --antrenament-color: #ff5722;
+    --nutritie-color: #4caf50;
+    --lifestyle-color: #2196f3;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: #fff;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.adsense-container {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Header */
+.header {
+    background-color: var(--dark-bg);
+}
+
+.navbar-dark {
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 600px;
+    background-image: url('/static/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: var(--light-text);
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: darken;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+}
+
+.hero-btn {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.hero-indicators {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.hero-indicators span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.hero-indicators span.active {
+    background-color: white;
+    transform: scale(1.2);
+}
+
+/* Article Cards */
+.article-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.article-img {
+    position: relative;
+    height: 200px;
+}
+
+.article-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-category {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.article-category.antrenament {
+    background-color: var(--antrenament-color);
+}
+
+.article-category.nutritie {
+    background-color: var(--nutritie-color);
+}
+
+.article-category.lifestyle {
+    background-color: var(--lifestyle-color);
+}
+
+.article-time {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+.article-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.article-title a {
+    color: var(--text-color);
+}
+
+.article-title a:hover {
+    color: var(--primary-color);
+}
+
+.article-excerpt {
+    color: var(--gray-color);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.read-more {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: auto;
+}
+
+.read-more:hover {
+    color: var(--primary-hover);
+}
+
+.view-all {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Category Sections */
+.category-section {
+    background-color: var(--light-bg);
+}
+
+.category-section.antrenamente-section .section-icon,
+.category-section.antrenamente-section .section-title {
+    color: var(--antrenament-color);
+}
+
+.category-section.nutritie-section .section-icon,
+.category-section.nutritie-section .section-title {
+    color: var(--nutritie-color);
+}
+
+.category-section.lifestyle-section .section-icon,
+.category-section.lifestyle-section .section-title {
+    color: var(--lifestyle-color);
+}
+
+.section-icon {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+}
+
+.category-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.category-img {
+    position: relative;
+    height: 200px;
+}
+
+.category-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category-time {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+.category-content {
+    padding: 1.5rem;
+    background-color: white;
+}
+
+.category-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+    padding: 2rem 0;
+}
+
+.newsletter-container {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 15px;
+    color: white;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.subscribe-btn {
+    background-color: white;
+    color: var(--primary-color);
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.subscribe-btn:hover {
+    background-color: var(--light-bg);
+    color: var(--primary-hover);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-bg);
+    color: white;
+}
+
+.footer h5 {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.footer a {
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.footer .social-icons a {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.copyright {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* Article Detail Page */
+.article-header {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.article-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.article-header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.article-header .article-category {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.article-header .article-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 0.9rem;
+}
+
+.article-content-section {
+    background-color: white;
+}
+
+.article-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.article-share {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-facebook {
+    background-color: #1877f2;
+    color: white;
+}
+
+.btn-twitter {
+    background-color: #1da1f2;
+    color: white;
+}
+
+.btn-whatsapp {
+    background-color: #25d366;
+    color: white;
+}
+
+.share-buttons .btn:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+.related-articles-section {
+    background-color: var(--light-bg);
+}
+
+/* Category and All Articles Pages */
+.category-header, .page-header {
+    background-color: var(--light-bg);
+    padding: 3rem 0;
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.category-title, .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.category-description, .page-description {
+    color: var(--gray-color);
+    font-size: 1.1rem;
+}
+
+.pagination-container {
+    margin-top: 3rem;
+}
+
+.page-link {
+    color: var(--primary-color);
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .article-header .article-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-section {
+        height: 450px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .article-header {
+        height: 350px;
+    }
+    
+    .article-header .article-title {
+        font-size: 1.75rem;
+    }
+    
+    .share-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
