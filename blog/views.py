@@ -84,6 +84,18 @@ def all_articles(request):
     
     return render(request, 'blog/all_articles.html', context)
 
+def bmi_calculator(request):
+    # Get AdSense locations
+    adsense_locations = {
+        ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
+    }
+    
+    context = {
+        'adsense_locations': adsense_locations,
+    }
+    
+    return render(request, 'blog/bmi_calculator.html', context)
+
 @csrf_exempt
 def subscribe_newsletter(request):
     if request.method == 'POST':
