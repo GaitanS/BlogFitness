@@ -49,17 +49,17 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             title: 'Nutriție pentru performanță',
             subtitle: 'Alimentează-ți corpul pentru rezultate optime',
-            backgroundImage: '/static/images/hero-bg.jpg'
+            backgroundImage: '/static/images/hero-bg.webp'
         },
         {
             title: 'Antrenamente eficiente',
             subtitle: 'Tehnici dovedite pentru rezultate maxime',
-            backgroundImage: '/static/images/hero-bg-2.jpg'
+            backgroundImage: '/static/images/hero-bg-2.webp'
         },
         {
             title: 'Lifestyle sănătos',
             subtitle: 'Obiceiuri care îți transformă viața',
-            backgroundImage: '/static/images/hero-bg-3.jpg'
+            backgroundImage: '/static/images/hero-bg-3.webp'
         }
     ];
     

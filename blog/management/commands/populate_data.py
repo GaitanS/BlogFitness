@@ -69,7 +69,7 @@ Stai pe spate, cu brațele și picioarele întinse. Ridică ușor umerii și pic
 
 Efectuează aceste exerciții de 3-4 ori pe săptămână, câte 3 seturi a 12-15 repetări pentru fiecare exercițiu. Nu uita să te odihnești între seturi!
                 ''',
-                'featured_image': 'placeholder.jpg',
+                'featured_image': 'placeholder.webp',
                 'read_time': 6,
                 'is_featured': False,
                 'category': category_objs['Antrenament']
@@ -120,7 +120,7 @@ Alimentația înainte și după antrenament joacă un rol crucial în performan�
 
 Reține că nutriția trebuie adaptată în funcție de obiectivele tale, tipul de antrenament și toleranța individuală. Experimentează cu diferite alimente și momente de consum pentru a găsi combinația optimă pentru tine.
                 ''',
-                'featured_image': 'placeholder.jpg',
+                'featured_image': 'placeholder.webp',
                 'read_time': 8,
                 'is_featured': True,
                 'category': category_objs['Nutriție']
@@ -178,7 +178,7 @@ Asigură-te că obiectivele tale de fitness sunt aliniate cu valorile tale perso
 
 Amintește-ți că motivația fluctuează natural. În zilele când motivația e scăzută, disciplina și obiceiurile bine stabilite sunt cele care te vor ajuta să rămâi pe drumul cel bun.
                 ''',
-                'featured_image': 'placeholder.jpg',
+                'featured_image': 'placeholder.webp',
                 'read_time': 5,
                 'is_featured': False,
                 'category': category_objs['Lifestyle']

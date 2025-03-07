@@ -76,7 +76,7 @@ a:hover {
 /* Hero Section */
 .hero-section {
     height: 600px;
-    background-image: url('/static/images/hero-bg.jpg');
+    background-image: url('/static/images/hero-bg.webp');
     background-size: cover;
     background-position: center;
     position: relative;
