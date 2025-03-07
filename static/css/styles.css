@@ -83,6 +83,19 @@ a:hover {
     color: var(--light-text);
     background-color: rgba(0, 0, 0, 0.4);
     background-blend-mode: darken;
+    transition: background-image 0.5s ease-in-out;
+    will-change: background-image;
+}
+
+.hero-section.hero-hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: block; /* Override display:none to allow transition */
+}
+
+.hero-section.hero-loading {
+    background-color: #f0f0f0; /* Grey background */
+    background-image: none;
 }
 
 .hero-title {
@@ -95,6 +108,8 @@ a:hover {
     font-size: 1.5rem;
     font-weight: 400;
     margin-bottom: 2rem;
+    transition: opacity 0.3s ease;
+    opacity: 1;
 }
 
 .hero-btn {

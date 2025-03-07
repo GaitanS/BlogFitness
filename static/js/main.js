@@ -3,6 +3,30 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    const heroSection = document.querySelector('.hero-section');
+    heroSection.classList.add('hero-hidden');
+    heroSection.classList.add('hero-loading');
+
+    // Preload images
+    const heroImages = [
+        '/static/images/hero-bg.webp',
+        '/static/images/hero-bg-2.webp',
+        '/static/images/hero-bg-3.webp'
+    ];
+
+    let imagesLoaded = 0;
+    heroImages.forEach(image => {
+        const img = new Image();
+        img.onload = () => {
+            imagesLoaded++;
+            if (imagesLoaded === heroImages.length) {
+                heroSection.classList.remove('hero-loading');
+                heroSection.classList.remove('hero-hidden');
+            }
+        };
+        img.src = image;
+    });
+
     // Newsletter form submission
     const newsletterForm = document.getElementById('newsletter-form');
     if (newsletterForm) {
@@ -63,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
     
-    const heroSection = document.querySelector('.hero-section');
     const indicators = document.querySelectorAll('.hero-indicators span');
     const heroTitle = document.querySelector('.hero-title');
     const heroSubtitle = document.querySelector('.hero-subtitle');
@@ -95,19 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Update content with animation
-            heroTitle.style.opacity = 0;
-            heroSubtitle.style.opacity = 0;
-            
-            setTimeout(() => {
-                // Update hero content
-                heroTitle.innerText = heroSlides[index].title;
-                heroSubtitle.innerText = heroSlides[index].subtitle;
-                
-                // Fade in the new content
-                heroTitle.style.opacity = 1;
-                heroSubtitle.style.opacity = 1;
-            }, 300);
+            // Update hero content
+            heroTitle.innerText = heroSlides[index].title;
+            heroSubtitle.innerText = heroSlides[index].subtitle;
             
             // Update background with fade effect
             heroSection.style.backgroundImage = `url(${heroSlides[index].backgroundImage})`;
