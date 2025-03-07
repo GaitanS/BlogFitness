@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+{% load blog_extras %}
 
 {% block title %}Fitness Blog - Nutriție, Antrenamente și Lifestyle{% endblock %}
 
@@ -110,140 +111,81 @@
 </div>
 {% endif %}
 
-<!-- Workouts Section -->
-<section class="category-section antrenamente-section py-5">
+<!-- Dynamic Category Sections -->
+{% for category in categories %}
+<section class="category-section {{ category.slug }}-section py-5">
     <div class="container">
         <div class="section-header d-flex align-items-center mb-4">
+            {% if category.icon %}
+            <i class="fas {{ category.icon }} section-icon"></i>
+            {% else %}
+            {% if category.slug == 'antrenament' %}
             <i class="fas fa-dumbbell section-icon"></i>
-            <h2 class="section-title mb-0">Antrenamente</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="category-card">
-                    <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="HIIT pentru începători">
-                        <div class="category-time">4 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">HIIT pentru începători</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="category-card">
-                    <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Stretch & Mobility">
-                        <div class="category-time">3 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Stretch & Mobility</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="category-card">
-                    <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Strength training 101">
-                        <div class="category-time">5 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Strength training 101</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Nutrition Section -->
-<section class="category-section nutritie-section py-5">
-    <div class="container">
-        <div class="section-header d-flex align-items-center mb-4">
+            {% elif category.slug == 'nutritie' %}
             <i class="fas fa-carrot section-icon"></i>
-            <h2 class="section-title mb-0">Nutriție</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="category-card">
-                    <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Proteine vegetale complete">
-                        <div class="category-time">4 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Proteine vegetale complete</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="category-card">
-                    <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Ghid macronutrienți">
-                        <div class="category-time">6 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Ghid macronutrienți</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="category-card">
-                    <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Meal prep în 30 minute">
-                        <div class="category-time">5 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Meal prep în 30 minute</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Lifestyle Section -->
-<section class="category-section lifestyle-section py-5">
-    <div class="container">
-        <div class="section-header d-flex align-items-center mb-4">
+            {% elif category.slug == 'lifestyle' %}
             <i class="fas fa-heart section-icon"></i>
-            <h2 class="section-title mb-0">Lifestyle</h2>
+            {% else %}
+            <i class="fas fa-book section-icon"></i>
+            {% endif %}
+            {% endif %}
+            <h2 class="section-title mb-0">{{ category.name }}</h2>
         </div>
         <div class="row">
+            {% with articles=category_articles|get_item:category %}
+            {% for article in articles|slice:":3" %}
             <div class="col-md-4 mb-4">
                 <div class="category-card">
                     <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Rutina de dimineață a atleților">
+                        <img src="{{ article.featured_image.url }}" alt="{{ article.title }}">
+                        <div class="category-time">{{ article.read_time }} min citire</div>
+                    </div>
+                    <div class="category-content">
+                        <h3 class="category-title"><a href="{% url 'blog:article_detail' article.slug %}">{{ article.title }}</a></h3>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Placeholder cards if no articles exist -->
+            <div class="col-md-4 mb-4">
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="Placeholder">
                         <div class="category-time">4 min citire</div>
                     </div>
                     <div class="category-content">
-                        <h3 class="category-title">Rutina de dimineață a atleților</h3>
+                        <h3 class="category-title">Placeholder article</h3>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="category-card">
                     <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Tehnici de recuperare">
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="Placeholder">
                         <div class="category-time">3 min citire</div>
                     </div>
                     <div class="category-content">
-                        <h3 class="category-title">Tehnici de recuperare</h3>
+                        <h3 class="category-title">Placeholder article</h3>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="category-card">
                     <div class="category-img">
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Mindfulness pentru performanță">
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="Placeholder">
                         <div class="category-time">5 min citire</div>
                     </div>
                     <div class="category-content">
-                        <h3 class="category-title">Mindfulness pentru performanță</h3>
+                        <h3 class="category-title">Placeholder article</h3>
                     </div>
                 </div>
             </div>
+            {% endfor %}
+            {% endwith %}
         </div>
     </div>
 </section>
+{% endfor %}
 
 <!-- AdSense Before Footer -->
 {% if adsense_locations.before_footer %}
