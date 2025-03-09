@@ -138,10 +138,10 @@
                 <div class="category-card">
                     <div class="category-img">
                         <img src="{{ article.featured_image.url }}" alt="{{ article.title }}">
-                        <div class="category-time">{{ article.read_time }} min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title"><a href="{% url 'blog:article_detail' article.slug %}">{{ article.title }}</a></h3>
+                        <div class="category-content">
+                            <h3 class="category-title"><a href="{% url 'blog:article_detail' article.slug %}">{{ article.title|truncate_title:30 }}</a></h3>
+                            <div class="category-time">{{ article.read_time }} min citire</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -151,21 +151,10 @@
                 <div class="category-card">
                     <div class="category-img">
                         <img src="{% static 'images/placeholder.webp' %}" alt="Placeholder">
-                        <div class="category-time">4 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Placeholder article</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="category-card">
-                    <div class="category-img">
-                        <img src="{% static 'images/placeholder.webp' %}" alt="Placeholder">
-                        <div class="category-time">3 min citire</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Placeholder article</h3>
+                        <div class="category-content">
+                            <h3 class="category-title">Placeholder article</h3>
+                            <div class="category-time">4 min citire</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,10 +162,21 @@
                 <div class="category-card">
                     <div class="category-img">
                         <img src="{% static 'images/placeholder.webp' %}" alt="Placeholder">
-                        <div class="category-time">5 min citire</div>
+                         <div class="category-content">
+                            <h3 class="category-title">Placeholder article</h3>
+                            <div class="category-time">3 min citire</div>
+                        </div>
                     </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Placeholder article</h3>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="{% static 'images/placeholder.webp' %}" alt="Placeholder">
+                        <div class="category-content">
+                            <h3 class="category-title">Placeholder article</h3>
+                            <div class="category-time">5 min citire</div>
+                        </div>
                     </div>
                 </div>
             </div>
