@@ -13,16 +13,35 @@ admin.site.index_title = "Bine ai venit în panoul de administrare"
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'description', 'article_count')
+    list_display = ('name', 'slug', 'description', 'article_count_display', 'visibility_status')
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name',)
     
-    def article_count(self, obj):
-        count = obj.articles.count()
-        url = reverse('admin:blog_article_changelist') + f'?category__id__exact={obj.id}'
-        return format_html('<a href="{}">{} articole</a>', url, count)
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.annotate(articles_count=Count('articles'))
     
-    article_count.short_description = 'Articole'
+    def article_count_display(self, obj):
+        count = obj.articles_count
+        if count == 0:
+            return format_html(
+                '<span style="color: red; font-weight: bold;">0 articole</span>'
+            )
+        return format_html(
+            '<span style="color: green;">{} articole</span>',
+            count
+        )
+    article_count_display.short_description = 'Număr de articole'
+    
+    def visibility_status(self, obj):
+        if obj.articles_count == 0:
+            return format_html(
+                '<span style="color: red; font-weight: bold;">❌ Ascunsă</span>'
+            )
+        return format_html(
+            '<span style="color: green; font-weight: bold;">✓ Vizibilă</span>'
+        )
+    visibility_status.short_description = 'Status Vizibilitate'
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):

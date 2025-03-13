@@ -849,3 +849,22 @@ a:hover {
         font-size: 2rem;
     }
 }
+
+/* No Articles Section */
+.no-articles-section {
+    background-color: var(--light-bg);
+}
+
+.no-articles-section .fa-newspaper {
+    color: var(--gray-color);
+}
+
+.no-articles-section .section-title {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.no-articles-section .text-muted {
+    font-size: 1rem;
+}

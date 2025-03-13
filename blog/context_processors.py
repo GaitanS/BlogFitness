@@ -1,8 +1,11 @@
+from django.db.models import Count
 from .models import Category, AdSenseLocation
 
 def global_context(request):
-    # Get all categories
-    categories = Category.objects.all()
+    # Obține doar categoriile care au cel puțin un articol
+    categories = Category.objects.annotate(
+        articles_count=Count('articles')
+    ).filter(articles_count__gt=0)
     
     # Get AdSense locations
     adsense_locations = {

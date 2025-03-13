@@ -1,42 +1,44 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
+from django.http import Http404
+from django.db.models import Count
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from .models import Category, Article, NewsletterSubscriber, AdSenseLocation
 
 def home(request):
+    # Get the latest article first
+    latest_article = Article.objects.order_by('-created_at').select_related('category').first()
     featured_article = Article.objects.filter(is_featured=True).order_by('-created_at').first()
     
-    # Get the latest article first
-    latest_article = Article.objects.order_by('-created_at').first()
+    # Get categories with at least one article
+    categories = Category.objects.annotate(
+        articles_count=Count('articles')
+    ).filter(articles_count__gt=0)
     
-    # Get all categories
-    categories = Category.objects.all()
-    
-    # Initialize the dictionary with the latest article's category first
+    # Initialize the ordered dictionary for category articles
     category_articles = {}
+    
     if latest_article:
-        category_articles[latest_article.category] = latest_article.category.articles.order_by('-created_at')[:3]
+        # Add the latest article's category first
+        latest_category = latest_article.category
+        category_articles[latest_category] = latest_category.articles.order_by('-created_at')[:3]
         
-        # Then add the rest of the categories
-        for category in categories:
-            if category != latest_article.category:
-                category_articles[category] = category.articles.order_by('-created_at')[:3]
+        # Add the remaining categories
+        for category in categories.exclude(id=latest_category.id):
+            category_articles[category] = category.articles.order_by('-created_at')[:3]
     else:
         # Fallback if there are no articles
         for category in categories:
-            category_articles[category] = category.articles.order_by('-created_at')[:3]
-    
-    # Get AdSense locations
-    adsense_locations = {
-        ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
-    }
+            category_articles[category] = []
     
     context = {
         'featured_article': featured_article,
+        'latest_article': latest_article,
         'categories': categories,
         'category_articles': category_articles,
-        'adsense_locations': adsense_locations,
+        'adsense_locations': {
+            ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
+        },
     }
     
     return render(request, 'blog/home.html', context)
@@ -59,22 +61,23 @@ def article_detail(request, slug):
     return render(request, 'blog/article_detail.html', context)
 
 def category_articles(request, slug):
-    category = get_object_or_404(Category, slug=slug)
-    articles_list = category.articles.order_by('-created_at')
+    # Verifică dacă categoria există și are articole
+    category = get_object_or_404(
+        Category.objects.annotate(articles_count=Count('articles')).filter(articles_count__gt=0),
+        slug=slug
+    )
     
-    paginator = Paginator(articles_list, 9)  # 9 articles per page
+    articles_list = category.articles.order_by('-created_at')
+    paginator = Paginator(articles_list, 9)
     page_number = request.GET.get('page')
     articles = paginator.get_page(page_number)
-    
-    # Get AdSense locations
-    adsense_locations = {
-        ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
-    }
     
     context = {
         'category': category,
         'articles': articles,
-        'adsense_locations': adsense_locations,
+        'adsense_locations': {
+            ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
+        },
     }
     
     return render(request, 'blog/category_articles.html', context)
