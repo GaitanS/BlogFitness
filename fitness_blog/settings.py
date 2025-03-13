@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s&pc@33ewad(u5j-hul7ewq6=(d!50t@(crbw(2&wtusw4=xc@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -154,12 +154,8 @@ WSGI_APPLICATION = 'fitness_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Ghidfit1vav$default',
-        'USER': 'Ghidfit1vav',
-        'PASSWORD': 'ghidfit2025',
-        'HOST': 'Ghidfit1vav.mysql.eu.pythonanywhere-services.com',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

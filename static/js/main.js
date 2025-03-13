@@ -126,4 +126,20 @@ document.addEventListener('DOMContentLoaded', function() {
             heroSection.style.backgroundImage = `url(${heroSlides[index].backgroundImage})`;
         }
     }
+
+    // Close navbar when clicking outside
+    document.addEventListener('click', function(event) {
+        const navbar = document.getElementById('navbarNav');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        
+        if (navbar.classList.contains('show')) {
+            // Check if click is outside navbar and not on the toggler
+            if (!navbar.contains(event.target) && !navbarToggler.contains(event.target)) {
+                // Close the navbar
+                navbar.classList.remove('show');
+                navbarToggler.classList.add('collapsed');
+                navbarToggler.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
 });

@@ -6,12 +6,26 @@ from .models import Category, Article, NewsletterSubscriber, AdSenseLocation
 
 def home(request):
     featured_article = Article.objects.filter(is_featured=True).order_by('-created_at').first()
+    
+    # Get the latest article first
+    latest_article = Article.objects.order_by('-created_at').first()
+    
+    # Get all categories
     categories = Category.objects.all()
     
-    # Get articles for each category (limited to 3 per category)
+    # Initialize the dictionary with the latest article's category first
     category_articles = {}
-    for category in categories:
-        category_articles[category] = category.articles.order_by('-created_at')[:3]
+    if latest_article:
+        category_articles[latest_article.category] = latest_article.category.articles.order_by('-created_at')[:3]
+        
+        # Then add the rest of the categories
+        for category in categories:
+            if category != latest_article.category:
+                category_articles[category] = category.articles.order_by('-created_at')[:3]
+    else:
+        # Fallback if there are no articles
+        for category in categories:
+            category_articles[category] = category.articles.order_by('-created_at')[:3]
     
     # Get AdSense locations
     adsense_locations = {
