@@ -221,7 +221,7 @@ Amintește-ți că motivația fluctuează natural. În zilele când motivația e
             {
                 'name': 'global',
                 'description': 'Cod AdSense global pentru toate paginile',
-                'ad_code': '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>',
+                'ad_code': '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5227061222218296" crossorigin="anonymous"></script>',
             },
             {
                 'name': 'below_hero',
