@@ -707,6 +707,8 @@ a:hover {
 .main-logo {
     max-width: 200px;
     height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 @media (max-width: 767px) {

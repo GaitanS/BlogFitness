@@ -4,6 +4,7 @@ Disallow: /admin/
 Disallow: /static/admin/
 Disallow: /media/admin/
 
+# Actualizează cu domeniul tău HTTPS
 Sitemap: https://yourdomain.com/sitemap.xml
 
 # Crawl-delay: 10
