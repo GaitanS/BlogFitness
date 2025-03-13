@@ -6,9 +6,8 @@ from django.core.paginator import Paginator
 from .models import Category, Article, NewsletterSubscriber, AdSenseLocation
 
 def home(request):
-    # Get the latest article first
+    # Get the latest article
     latest_article = Article.objects.order_by('-created_at').select_related('category').first()
-    featured_article = Article.objects.filter(is_featured=True).order_by('-created_at').first()
     
     # Get categories with at least one article
     categories = Category.objects.annotate(
@@ -21,24 +20,30 @@ def home(request):
     if latest_article:
         # Add the latest article's category first
         latest_category = latest_article.category
-        category_articles[latest_category] = latest_category.articles.order_by('-created_at')[:3]
+        category_articles[latest_category] = Article.objects.filter(
+            category=latest_category
+        ).exclude(
+            id=latest_article.id
+        ).order_by('-created_at')[:3]
         
-        # Add the remaining categories
-        for category in categories.exclude(id=latest_category.id):
-            category_articles[category] = category.articles.order_by('-created_at')[:3]
-    else:
-        # Fallback if there are no articles
+        # Add other categories
         for category in categories:
-            category_articles[category] = []
+            if category != latest_category:
+                category_articles[category] = Article.objects.filter(
+                    category=category
+                ).order_by('-created_at')[:3]
+    
+    # Get AdSense locations
+    adsense_locations = {
+        location.name: location.ad_code 
+        for location in AdSenseLocation.objects.filter(is_active=True)
+    }
     
     context = {
-        'featured_article': featured_article,
         'latest_article': latest_article,
         'categories': categories,
         'category_articles': category_articles,
-        'adsense_locations': {
-            ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
-        },
+        'adsense_locations': adsense_locations,
     }
     
     return render(request, 'blog/home.html', context)
