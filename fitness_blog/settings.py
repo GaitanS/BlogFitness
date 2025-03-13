@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s&pc@33ewad(u5j-hul7ewq6=(d!50t@(crbw(2&wtusw4=xc@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,7 +50,7 @@ JAZZMIN_SETTINGS = {
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_header": "Fitness Blog",
     # Logo to use for your site, must be present in static files
-    "site_logo": None,
+    "site_logo": "images/logo.webp",  # Actualizat din .png în .webp
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
     # Welcome text on the login screen
@@ -217,3 +217,18 @@ SITE_DOMAIN = "ghidfit.ro"  # Înlocuiește cu domeniul tău
 
 # Robots.txt și Sitemap settings
 ROBOTS_TXT_PATH = os.path.join(BASE_DIR, 'robots.txt')
+
+# Security settings
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 31536000  # 1 an
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Modifică ALLOWED_HOSTS pentru a include doar domeniile tale
+ALLOWED_HOSTS = ['*']
+
+# Modifică SITE_DOMAIN
+SITE_DOMAIN = "*"
