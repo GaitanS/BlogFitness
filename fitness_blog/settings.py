@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -208,3 +209,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SEO Settings
+SITE_ID = 1  # Necesar pentru sitemaps
+SITE_NAME = "GhidFit"
+SITE_DOMAIN = "ghidfit.ro"  # Înlocuiește cu domeniul tău
+
+# Robots.txt și Sitemap settings
+ROBOTS_TXT_PATH = os.path.join(BASE_DIR, 'robots.txt')
