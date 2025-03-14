@@ -4,7 +4,9 @@ Disallow: /admin/
 Disallow: /static/admin/
 Disallow: /media/admin/
 
-# Actualizează cu domeniul corect
+# Site-ul preferat
+Host: www.ghidfit.ro
+
 Sitemap: https://www.ghidfit.ro/sitemap.xml
 
 User-agent: Googlebot

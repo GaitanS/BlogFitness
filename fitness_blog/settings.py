@@ -35,7 +35,7 @@ SECURE_HSTS_SECONDS = 31536000  # 1 an
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_HSTS_PRELOAD = False
 
-# Modifică ALLOWED_HOSTS pentru a include doar domeniile tale
+# Domenii permise
 ALLOWED_HOSTS = ['www.ghidfit.ro', 'ghidfit.ro']
 
 
@@ -126,8 +126,8 @@ JAZZMIN_UI_TWEAKS = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'blog.middleware.WwwRedirectMiddleware',  # Adaugă această linie
     'blog.middleware.SitemapContentTypeMiddleware',
-    # 'blog.middleware.WwwRedirectMiddleware',  # Comentat deoarece Cloudflare gestionează redirecționarea
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

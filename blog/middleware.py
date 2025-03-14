@@ -1,5 +1,3 @@
-# Cod comentat deoarece redirecționarea este gestionată de Cloudflare
-"""
 from django.http import HttpResponsePermanentRedirect
 
 class WwwRedirectMiddleware:
@@ -8,12 +6,11 @@ class WwwRedirectMiddleware:
 
     def __call__(self, request):
         host = request.get_host().lower()
-        if host == 'ghidfit.ro':
+        if not host.startswith('www.') and not host.startswith('localhost'):
             return HttpResponsePermanentRedirect(
-                'https://www.ghidfit.ro' + request.path
+                f'https://www.{host}{request.path}'
             )
         return self.get_response(request)
-"""
 
 class SitemapContentTypeMiddleware:
     def __init__(self, get_response):
@@ -24,5 +21,6 @@ class SitemapContentTypeMiddleware:
         if request.path == '/sitemap.xml':
             response['Content-Type'] = 'application/xml; charset=utf-8'
         return response
+
 
 
