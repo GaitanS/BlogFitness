@@ -4,8 +4,9 @@ from ckeditor.fields import RichTextField
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nume')
-    slug = models.SlugField(unique=True, verbose_name='Slug')
+    slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug')  # Mărit la 200
     icon = models.CharField(max_length=50, blank=True, null=True, verbose_name='Iconiță FontAwesome')
+    description = models.TextField(blank=True, null=True, verbose_name='Descriere')
 
     class Meta:
         verbose_name = 'Categorie'
@@ -23,7 +24,7 @@ class Category(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=200, verbose_name='Titlu')
-    slug = models.SlugField(unique=True, verbose_name='Slug')
+    slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug')  # Mărit la 200
     content = RichTextField(verbose_name='Conținut')
     featured_image = models.ImageField(upload_to='articles/', verbose_name='Imagine principală')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='articles', verbose_name='Categorie')

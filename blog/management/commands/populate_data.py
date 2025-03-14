@@ -71,7 +71,6 @@ Efectuează aceste exerciții de 3-4 ori pe săptămână, câte 3 seturi a 12-1
                 ''',
                 'featured_image': 'placeholder.webp',
                 'read_time': 6,
-                'is_featured': False,
                 'category': category_objs['Antrenament']
             }
         ]
@@ -122,7 +121,6 @@ Reține că nutriția trebuie adaptată în funcție de obiectivele tale, tipul 
                 ''',
                 'featured_image': 'placeholder.webp',
                 'read_time': 8,
-                'is_featured': True,
                 'category': category_objs['Nutriție']
             }
         ]
@@ -176,11 +174,10 @@ Când nu ai chef de antrenament, promite-ți să faci doar 2 minute. De cele mai
 
 Asigură-te că obiectivele tale de fitness sunt aliniate cu valorile tale personale și cu viziunea ta despre viață. Această conexiune profundă va menține flacăra motivației aprinsă mult timp.
 
-Amintește-ți că motivația fluctuează natural. În zilele când motivația e scăzută, disciplina și obiceiurile bine stabilite sunt cele care te vor ajuta să rămâi pe drumul cel bun.
+Amintește-ți că motivația fluctuează natural. În zilele când motivația e scăzută, disciplina și obiceiurile bine stabilite sunt cele care te vor ajuta să rămâni pe drumul cel bun.
                 ''',
                 'featured_image': 'placeholder.webp',
                 'read_time': 5,
-                'is_featured': False,
                 'category': category_objs['Lifestyle']
             }
         ]
@@ -219,39 +216,28 @@ Amintește-ți că motivația fluctuează natural. În zilele când motivația e
         # Adăugare locații AdSense
         adsense_locations = [
             {
-                'name': 'global',
-                'description': 'Cod AdSense global pentru toate paginile',
-                'ad_code': '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5227061222218296" crossorigin="anonymous"></script>',
-            },
-            {
                 'name': 'below_hero',
-                'description': 'Sub secțiunea hero pe pagina principală',
-                'ad_code': '<!-- Adsense Below Hero --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+                'ad_code': '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5227061222218296" data-ad-slot="ID-UL-TAU-REAL" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
             },
             {
                 'name': 'middle_page',
-                'description': 'În mijlocul paginii principale',
-                'ad_code': '<!-- Adsense Middle Page --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+                'ad_code': '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5227061222218296" data-ad-slot="ID-UL-TAU-REAL" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
             },
             {
                 'name': 'before_footer',
-                'description': 'Înainte de footer',
-                'ad_code': '<!-- Adsense Before Footer --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+                'ad_code': '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5227061222218296" data-ad-slot="ID-UL-TAU-REAL" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
             },
             {
                 'name': 'above_content',
-                'description': 'Deasupra conținutului articolului',
-                'ad_code': '<!-- Adsense Above Content --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+                'ad_code': '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5227061222218296" data-ad-slot="ID-UL-TAU-REAL" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
             },
             {
                 'name': 'below_content',
-                'description': 'Sub conținutul articolului',
-                'ad_code': '<!-- Adsense Below Content --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+                'ad_code': '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5227061222218296" data-ad-slot="ID-UL-TAU-REAL" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
             },
             {
                 'name': 'below_header',
-                'description': 'Sub header-ul paginii de categorie sau articole',
-                'ad_code': '<!-- Adsense Below Header --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+                'ad_code': '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5227061222218296" data-ad-slot="ID-UL-TAU-REAL" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
             },
         ]
         
@@ -259,7 +245,6 @@ Amintește-ți că motivația fluctuează natural. În zilele când motivația e
             location, created = AdSenseLocation.objects.get_or_create(
                 name=location_data['name'],
                 defaults={
-                    'description': location_data['description'],
                     'ad_code': location_data['ad_code'],
                 }
             )

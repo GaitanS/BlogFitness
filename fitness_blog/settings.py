@@ -27,16 +27,16 @@ SECRET_KEY = 'django-insecure-s&pc@33ewad(u5j-hul7ewq6=(d!50t@(crbw(2&wtusw4=xc@
 DEBUG = True
 
 # Security settings
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000  # 1 an
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_HSTS_PRELOAD = False
 
 # Modifică ALLOWED_HOSTS pentru a include doar domeniile tale
-ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com','localhost']
+ALLOWED_HOSTS = ['www.ghidfit.ro', 'ghidfit.ro']
 
 
 # Application definition
@@ -126,6 +126,7 @@ JAZZMIN_UI_TWEAKS = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'blog.middleware.WwwRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -219,7 +220,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # SEO Settings
 SITE_ID = 1  # Necesar pentru sitemaps
 SITE_NAME = "GhidFit"
-SITE_DOMAIN = "yourdomain.com"  # Înlocuiește cu domeniul tău
+SITE_DOMAIN = "www.ghidfit.ro"  # Modifică aici
 
 # Robots.txt și Sitemap settings
 ROBOTS_TXT_PATH = os.path.join(BASE_DIR, 'robots.txt')

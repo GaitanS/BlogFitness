@@ -4,22 +4,12 @@ Disallow: /admin/
 Disallow: /static/admin/
 Disallow: /media/admin/
 
-# Actualizează cu domeniul tău HTTPS
+# Actualizează cu domeniul corect
 Sitemap: https://www.ghidfit.ro/sitemap.xml
 
-# Crawl-delay: 10
-
-# Google Bot
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
-# Bing Bot
-User-agent: Bingbot
+User-agent: Mediapartners-Google
 Allow: /
-Crawl-delay: 1
-
-# DuckDuckGo Bot
-User-agent: DuckDuckBot
-Allow: /
-Crawl-delay: 1
