@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import ArticleSitemap, CategorySitemap, StaticSitemap
+from django.views.decorators.cache import cache_page
 
 sitemaps = {
     'articles': ArticleSitemap,
@@ -31,18 +32,25 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    path('sitemap.xml', sitemap, 
-        {'sitemaps': sitemaps},
+    path('sitemap.xml', 
+        cache_page(86400)(sitemap),  # Cache pentru 24 ore
+        {'sitemaps': sitemaps,
+         'template_name': 'sitemap.xml',
+         'content_type': 'application/xml'},
         name='django.contrib.sitemaps.views.sitemap'
     ),
-    path('robots.txt', TemplateView.as_view(
-        template_name="robots.txt", 
-        content_type="text/plain"
-    )),
-    path('ads.txt', TemplateView.as_view(
-        template_name="ads.txt", 
-        content_type="text/plain"
-    )),
+    path('robots.txt', 
+        TemplateView.as_view(
+            template_name="robots.txt", 
+            content_type="text/plain"
+        )
+    ),
+    path('ads.txt', 
+        TemplateView.as_view(
+            template_name="ads.txt", 
+            content_type="text/plain"
+        )
+    ),
 ]
 
 if settings.DEBUG:
