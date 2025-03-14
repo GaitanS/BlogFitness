@@ -6,7 +6,10 @@ class WwwRedirectMiddleware:
 
     def __call__(self, request):
         host = request.get_host().lower()
-        if not host.startswith('www.') and not host.startswith('localhost'):
+        # Verifică dacă nu suntem deja pe www și nu suntem pe localhost
+        if (not host.startswith('www.') and 
+            not host.startswith('localhost') and 
+            host == 'ghidfit.ro'):  # Verificare exactă pentru domeniul principal
             return HttpResponsePermanentRedirect(
                 f'https://www.{host}{request.path}'
             )
@@ -21,6 +24,7 @@ class SitemapContentTypeMiddleware:
         if request.path == '/sitemap.xml':
             response['Content-Type'] = 'application/xml; charset=utf-8'
         return response
+
 
 
 
