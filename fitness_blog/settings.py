@@ -31,7 +31,7 @@ SECURE_SSL_REDIRECT = False
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-SECURE_HSTS_SECONDS = 0  # 1 an
+SECURE_HSTS_SECONDS = 31536000  # 1 an
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_HSTS_PRELOAD = False
 
@@ -59,10 +59,6 @@ JAZZMIN_SETTINGS = {
     "site_title": "Fitness Blog Admin",
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_header": "Fitness Blog",
-    # Logo to use for your site, must be present in static files
-    "site_logo": "images/logo.webp",  # Actualizat din .png în .webp
-    # CSS classes that are applied to the logo above
-    "site_logo_classes": "img-circle",
     # Welcome text on the login screen
     "welcome_sign": "Bine ai venit în panoul de administrare",
     # Copyright on the footer
