@@ -1,3 +1,5 @@
+# Cod comentat deoarece redirecționarea este gestionată de Cloudflare
+"""
 from django.http import HttpResponsePermanentRedirect
 
 class WwwRedirectMiddleware:
@@ -11,3 +13,5 @@ class WwwRedirectMiddleware:
                 'https://www.ghidfit.ro' + request.path
             )
         return self.get_response(request)
+"""
+

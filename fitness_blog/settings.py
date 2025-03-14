@@ -126,7 +126,7 @@ JAZZMIN_UI_TWEAKS = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'blog.middleware.WwwRedirectMiddleware',
+    # 'blog.middleware.WwwRedirectMiddleware',  # Comentat deoarece Cloudflare gestionează redirecționarea
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
