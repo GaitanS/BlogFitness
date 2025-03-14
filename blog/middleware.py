@@ -6,12 +6,9 @@ class WwwRedirectMiddleware:
 
     def __call__(self, request):
         host = request.get_host().lower()
-        if (not host.startswith('www.') and 
-            not host.startswith('localhost') and 
-            host == 'ghidfit.ro'):
-            return HttpResponsePermanentRedirect(
-                f'https://www.{host}{request.path}'
-            )
+        if host == "ghidfit.ro":
+            new_url = request.build_absolute_uri().replace("ghidfit.ro", "www.ghidfit.ro", 1)
+            return HttpResponsePermanentRedirect(new_url)
         return self.get_response(request)
 
 class SitemapContentTypeMiddleware:
@@ -23,6 +20,7 @@ class SitemapContentTypeMiddleware:
         if request.path == '/sitemap.xml':
             response['Content-Type'] = 'application/xml; charset=utf-8'
         return response
+
 
 
 

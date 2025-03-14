@@ -126,7 +126,7 @@ JAZZMIN_UI_TWEAKS = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'blog.middleware.WwwRedirectMiddleware',  # Reactivat pentru redirecționare
+    'blog.middleware.WwwRedirectMiddleware',  # Middleware-ul de redirecționare
     'blog.middleware.SitemapContentTypeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
