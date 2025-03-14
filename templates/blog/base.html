@@ -17,6 +17,15 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <style>
+        .adsense-container {
+            display: none;
+            margin: 1rem 0;
+            text-align: center;
+            min-height: 100px;
+        }
+    </style>
+
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -55,6 +64,12 @@
             </div>
         </nav>
     </header>
+
+    {% if adsense_locations.below_hero %}
+    <div class="adsense-container">
+        {{ adsense_locations.below_hero|safe }}
+    </div>
+    {% endif %}
 
     <main>
         {% block content %}{% endblock %}
@@ -120,5 +135,50 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/nutrition_calculators.js' %}"></script>
+    <script src="{% static 'js/cookie-consent.js' %}"></script>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent-modal modal fade" id="cookieModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cookieModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cookieModalLabel">Politica de Cookie-uri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Acest website folosește cookie-uri pentru a vă îmbunătăți experiența de navigare și pentru a furniza funcționalități suplimentare. Puteți alege ce tipuri de cookie-uri acceptați.</p>
+                    <div class="cookie-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="necessaryCookies" checked disabled>
+                            <label class="form-check-label" for="necessaryCookies">
+                                <strong>Necesare</strong> - Cookie-uri esențiale pentru funcționarea site-ului
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="analyticsCookies">
+                            <label class="form-check-label" for="analyticsCookies">
+                                <strong>Analitice</strong> - Ne ajută să înțelegem cum este folosit site-ul
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="marketingCookies">
+                            <label class="form-check-label" for="marketingCookies">
+                                <strong>Marketing</strong> - Pentru publicitate personalizată
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="acceptSelectedCookies">Acceptă selecția</button>
+                    <button type="button" class="btn btn-primary" id="acceptAllCookies">Acceptă tot</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Button -->
+    <button id="cookieSettingsBtn" class="cookie-settings-btn">
+        <i class="fas fa-cookie-bite"></i> Cookie Settings
+    </button>
 </body>
 </html>
