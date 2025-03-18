@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-s&pc@33ewad(u5j-hul7ewq6=(d!50t@(crbw(2&wtusw4=xc@
 DEBUG = False
 
 # Domeniul nou
-ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro']
+ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro','84.32.84.32']
 
 # Setări de securitate
 SECURE_SSL_REDIRECT = True
