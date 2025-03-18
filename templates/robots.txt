@@ -4,10 +4,9 @@ Disallow: /admin/
 Disallow: /static/admin/
 Disallow: /media/admin/
 
-# Site-ul preferat
-Host: www.ghidfit.ro
+Host: ghidulfit365.ro
 
-Sitemap: https://www.ghidfit.ro/sitemap.xml
+Sitemap: https://ghidulfit365.ro/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
