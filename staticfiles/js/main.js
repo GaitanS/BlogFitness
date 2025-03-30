@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     const heroSection = document.querySelector('.hero-section');
-    heroSection.classList.add('hero-hidden');
+    // Add loading class for initial opacity and transition
     heroSection.classList.add('hero-loading');
 
     // Preload images
@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         img.onload = () => {
             imagesLoaded++;
             if (imagesLoaded === heroImages.length) {
+                // Remove loading class to trigger fade-in
                 heroSection.classList.remove('hero-loading');
-                heroSection.classList.remove('hero-hidden');
             }
         };
         img.src = image;
@@ -41,10 +41,14 @@ document.addEventListener('DOMContentLoaded', function() {
             messageContainer.className = '';
             
             // Send AJAX request
-            fetch('/subscribe/', {
+            // Folosim URL absolut pentru a asigura funcționarea pe toate paginile
+            const baseUrl = window.location.origin;
+            
+            fetch(`${baseUrl}/subscribe/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: `email=${encodeURIComponent(email)}`
             })

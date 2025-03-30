@@ -41,10 +41,14 @@ document.addEventListener('DOMContentLoaded', function() {
             messageContainer.className = '';
             
             // Send AJAX request
-            fetch('/subscribe/', {
+            // Folosim URL absolut pentru a asigura funcționarea pe toate paginile
+            const baseUrl = window.location.origin;
+            
+            fetch(`${baseUrl}/subscribe/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: `email=${encodeURIComponent(email)}`
             })

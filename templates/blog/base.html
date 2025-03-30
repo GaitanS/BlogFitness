@@ -87,6 +87,7 @@
                         <h2 class="section-title">Primește cele mai noi articole și sfaturi</h2>
                         <p class="mb-4">Abonează-te la newsletter pentru a primi ultimele noutăți din lumea fitness și sfaturi personalizate direct în inbox.</p>
                         <form id="newsletter-form" class="newsletter-form">
+                            {% csrf_token %}
                             <div class="input-group">
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Adresa ta de email" required>
                                 <button type="submit" class="btn subscribe-btn">Abonează-te</button>

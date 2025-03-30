@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Category, Article, AdSenseLocation
+from .models import Category, Article, AdSenseLocation, NewsletterSubscriber
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
@@ -53,9 +53,19 @@ class AdSenseLocationAdmin(admin.ModelAdmin):
         verbose_name = 'Locație AdSense'
         verbose_name_plural = 'Locații AdSense'
 
+class NewsletterSubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'subscribed_at')
+    search_fields = ('email',)
+    readonly_fields = ('subscribed_at',)
+    
+    class Meta:
+        verbose_name = 'Abonat Newsletter'
+        verbose_name_plural = 'Abonați Newsletter'
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(AdSenseLocation, AdSenseLocationAdmin)
+admin.site.register(NewsletterSubscriber, NewsletterSubscriberAdmin)
 
 # Personalizare titluri admin
 admin.site.site_header = 'Administrare Blog Fitness'
