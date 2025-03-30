@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     const heroSection = document.querySelector('.hero-section');
-    heroSection.classList.add('hero-hidden');
+    // Add loading class for initial opacity and transition
     heroSection.classList.add('hero-loading');
 
     // Preload images
@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         img.onload = () => {
             imagesLoaded++;
             if (imagesLoaded === heroImages.length) {
+                // Remove loading class to trigger fade-in
                 heroSection.classList.remove('hero-loading');
-                heroSection.classList.remove('hero-hidden');
             }
         };
         img.src = image;

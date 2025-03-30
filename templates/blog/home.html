@@ -23,14 +23,14 @@
     </div>
 </section>
 
-<!-- Remove the separate logo section -->
-
 <!-- AdSense Below Hero -->
 {% if adsense_locations.below_hero %}
 <div class="adsense-container">
     {{ adsense_locations.below_hero|safe }}
 </div>
 {% endif %}
+
+<!-- Remove the separate logo section -->
 
 {% if latest_article %}
     <!-- Featured Articles Section -->

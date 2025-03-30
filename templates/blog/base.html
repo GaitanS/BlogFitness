@@ -75,12 +75,6 @@
         </nav>
     </header>
 
-    {% if adsense_locations.below_hero %}
-    <div class="adsense-container">
-        {{ adsense_locations.below_hero|safe }}
-    </div>
-    {% endif %}
-
     <main>
         {% block content %}{% endblock %}
     </main>
@@ -185,6 +179,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Cookie Settings Button -->
+    <button id="cookieSettingsBtn" class="cookie-settings-btn">
+        <i class="fas fa-cookie-bite"></i> Cookie Settings
+    </button>
+</body>
 
     <!-- Cookie Settings Button -->
     <button id="cookieSettingsBtn" class="cookie-settings-btn">

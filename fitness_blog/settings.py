@@ -24,19 +24,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s&pc@33ewad(u5j-hul7ewq6=(d!50t@(crbw(2&wtusw4=xc@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Domeniul nou
-ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro','84.32.84.32']
+ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro', '84.32.84.32', 'localhost', '127.0.0.1']
 
 # Setări de securitate
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+# Enforce HTTPS and related security settings only when not in DEBUG mode
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+else:
+    # Relax security settings for local development (DEBUG=True)
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
 # Application definition
 
@@ -50,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'blog',
+    'ckeditor', # Added for rich text editor
 ]
 
 # Jazzmin settings

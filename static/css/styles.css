@@ -169,19 +169,17 @@ a:hover {
     color: var(--light-text);
     background-color: rgba(0, 0, 0, 0.4);
     background-blend-mode: darken;
-    transition: background-image 0.5s ease-in-out;
-    will-change: background-image;
+    /* Add opacity to transition for fade-in effect */
+    transition: background-image 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    will-change: background-image, opacity;
 }
 
-.hero-section.hero-hidden {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    display: block; /* Override display:none to allow transition */
-}
+/* .hero-section.hero-hidden rule removed as it's no longer used by JS */
 
 .hero-section.hero-loading {
-    background-color: #f0f0f0; /* Grey background */
+    background-color: #f0f0f0; /* Optional: keep grey background during load */
     background-image: none;
+    opacity: 0; /* Start transparent */
 }
 
 .hero-title {
