@@ -169,8 +169,12 @@ WSGI_APPLICATION = 'fitness_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ghidulfit365',
+        'USER': 'ghidulfit365_user',
+        'PASSWORD': 'adrianvilea2025',  # Adaugă parola aici
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

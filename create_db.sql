@@ -1,0 +1,3 @@
+CREATE DATABASE ghidulfit365;
+CREATE USER ghidulfit365_user WITH PASSWORD 'adrianvilea2025';
+GRANT ALL PRIVILEGES ON DATABASE ghidulfit365 TO ghidulfit365_user;
