@@ -12,6 +12,9 @@ def global_context(request):
         ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
     }
     
+    # Debug print
+    print("Available AdSense locations:", adsense_locations.keys())
+    
     return {
         'categories': categories,
         'adsense_locations': adsense_locations

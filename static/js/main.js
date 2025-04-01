@@ -4,8 +4,11 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     const heroSection = document.querySelector('.hero-section');
-    // Add loading class for initial opacity and transition
-    heroSection.classList.add('hero-loading');
+
+    // Only run hero section logic if the element exists
+    if (heroSection) {
+        // Add loading class for initial opacity and transition
+        heroSection.classList.add('hero-loading');
 
     // Preload images
     const heroImages = [
@@ -26,29 +29,32 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         img.src = image;
     });
+    } // End of if (heroSection)
 
-    // Newsletter form submission
-    const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const messageContainer = document.getElementById('newsletter-message');
-            
+    // Newsletter form submission using event delegation
+    document.body.addEventListener('submit', function(e) {
+        // Check if the submitted form is the newsletter form
+        if (e.target && e.target.id === 'newsletter-form') {
+            e.preventDefault(); // Prevent default only for this form
+
+            const newsletterForm = e.target; // The form element
+            const email = newsletterForm.querySelector('#email').value;
+            const messageContainer = newsletterForm.querySelector('#newsletter-message');
+            const csrfToken = newsletterForm.querySelector('[name=csrfmiddlewaretoken]').value;
+
             // Clear previous messages
             messageContainer.innerHTML = '';
             messageContainer.className = '';
-            
+
             // Send AJAX request
-            // Folosim URL absolut pentru a asigura funcționarea pe toate paginile
             const baseUrl = window.location.origin;
-            
+
             fetch(`${baseUrl}/subscribe/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': csrfToken
                 },
                 body: `email=${encodeURIComponent(email)}`
             })
@@ -59,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     messageContainer.innerText = data.message;
                     newsletterForm.reset();
                 } else {
-                    messageContainer.className = 'text-danger';
+                    // Use the specific ID selector we added for white text
+                    messageContainer.className = 'text-danger'; // Keep the class for styling hook
                     messageContainer.innerText = data.message;
                 }
             })
@@ -68,8 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 messageContainer.innerText = 'A apărut o eroare. Te rugăm să încerci din nou.';
                 console.error('Error:', error);
             });
-        });
-    }
+        }
+    });
     
     // Hero Slider
     let currentSlide = 0;

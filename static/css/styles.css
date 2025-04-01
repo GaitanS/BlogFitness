@@ -44,9 +44,19 @@ a:hover {
 }
 
 .adsense-container {
+    display: block;
     width: 100%;
-    overflow: hidden;
+    margin: 1rem 0;
     text-align: center;
+    min-height: 100px; /* Ensures space is visible even when ad hasn't loaded */
+    background-color: #f8f9fa; /* Light background to make the container visible */
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+/* Add this for debugging purposes */
+.adsense-container:empty {
+    border: 1px dashed #dee2e6;
 }
 
 /* Header */
@@ -931,4 +941,9 @@ a:hover {
         padding: 8px 12px;
         font-size: 12px;
     }
+}
+
+/* Override newsletter error message color */
+#newsletter-message.text-danger {
+    color: white !important; /* Use !important to ensure override */
 }

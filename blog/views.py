@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, JsonResponse
 from django.db.models import Count
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt # Removed csrf_exempt
 from django.core.paginator import Paginator
 from .models import Category, Article, NewsletterSubscriber, AdSenseLocation
 
@@ -17,21 +17,11 @@ def home(request):
     # Initialize the ordered dictionary for category articles
     category_articles = {}
     
-    if latest_article:
-        # Add the latest article's category first
-        latest_category = latest_article.category
-        category_articles[latest_category] = Article.objects.filter(
-            category=latest_category
-        ).exclude(
-            id=latest_article.id
+    # Add articles for all categories
+    for category in categories:
+        category_articles[category] = Article.objects.filter(
+            category=category
         ).order_by('-created_at')[:3]
-        
-        # Add other categories
-        for category in categories:
-            if category != latest_category:
-                category_articles[category] = Article.objects.filter(
-                    category=category
-                ).order_by('-created_at')[:3]
     
     # Get AdSense locations
     adsense_locations = {
@@ -66,23 +56,28 @@ def article_detail(request, slug):
     return render(request, 'blog/article_detail.html', context)
 
 def category_articles(request, slug):
-    # Verifică dacă categoria există și are articole
-    category = get_object_or_404(
-        Category.objects.annotate(articles_count=Count('articles')).filter(articles_count__gt=0),
-        slug=slug
-    )
+    # Get category and ensure it exists
+    category = get_object_or_404(Category, slug=slug)
     
-    articles_list = category.articles.order_by('-created_at')
-    paginator = Paginator(articles_list, 9)
+    # Get all articles for this category
+    articles_list = Article.objects.filter(
+        category=category
+    ).order_by('-created_at')
+    
+    # Paginate results
+    paginator = Paginator(articles_list, 9)  # 9 articles per page
     page_number = request.GET.get('page')
     articles = paginator.get_page(page_number)
+    
+    # Get AdSense locations
+    adsense_locations = {
+        ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
+    }
     
     context = {
         'category': category,
         'articles': articles,
-        'adsense_locations': {
-            ad.name: ad.ad_code for ad in AdSenseLocation.objects.filter(is_active=True)
-        },
+        'adsense_locations': adsense_locations,
     }
     
     return render(request, 'blog/category_articles.html', context)
@@ -118,7 +113,7 @@ def bmi_calculator(request):
     
     return render(request, 'blog/bmi_calculator.html', context)
 
-@csrf_exempt
+# @csrf_exempt # Removed csrf_exempt
 def subscribe_newsletter(request):
     if request.method == 'POST':
         email = request.POST.get('email')

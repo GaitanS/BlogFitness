@@ -24,11 +24,13 @@
 </section>
 
 <!-- AdSense Below Hero -->
-{% if adsense_locations.below_hero %}
-<div class="adsense-container">
-    {{ adsense_locations.below_hero|safe }}
+<div class="container">
+    {% if adsense_locations.below_hero %}
+    <div class="adsense-container my-4" style="display: block;">
+        {{ adsense_locations.below_hero|safe }}
+    </div>
+    {% endif %}
 </div>
-{% endif %}
 
 <!-- Remove the separate logo section -->
 
