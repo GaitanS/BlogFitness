@@ -43,23 +43,21 @@
                 <a href="{% url 'blog:all_articles' %}" class="view-all">Vezi toate <i class="fas fa-arrow-right ms-1"></i></a>
             </div>
             <div class="row">
-                {% for category, articles in category_articles.items %}
-                    {% for article in articles %}
-                        <div class="col-md-4 mb-4">
-                            <div class="article-card">
-                                <div class="article-img">
-                                    <img src="{{ article.featured_image.url }}" alt="{{ article.title }}">
-                                    <div class="article-category {{ article.category.slug }}">{{ article.category.name }}</div>
-                                    <div class="article-time">{{ article.read_time }} min citire</div>
-                                </div>
-                                <div class="article-content">
-                                    <h3 class="article-title"><a href="{% url 'blog:article_detail' article.slug %}">{{ article.title }}</a></h3>
-                                    <p class="article-excerpt">{{ article.content|truncatechars:100 }}</p>
-                                    <a href="{% url 'blog:article_detail' article.slug %}" class="read-more">Citește mai mult <i class="fas fa-arrow-right ms-1"></i></a>
-                                </div>
+                {% for article in recent_articles %}
+                    <div class="col-md-4 mb-4">
+                        <div class="article-card">
+                            <div class="article-img">
+                                <img src="{{ article.featured_image.url }}" alt="{{ article.title }}">
+                                <div class="article-category {{ article.category.slug }}">{{ article.category.name }}</div>
+                                <div class="article-time">{{ article.read_time }} min citire</div>
+                            </div>
+                            <div class="article-content">
+                                <h3 class="article-title"><a href="{% url 'blog:article_detail' article.slug %}">{{ article.title }}</a></h3>
+                                <p class="article-excerpt">{{ article.content|truncatechars:100 }}</p>
+                                <a href="{% url 'blog:article_detail' article.slug %}" class="read-more">Citește mai mult <i class="fas fa-arrow-right ms-1"></i></a>
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
                 {% endfor %}
             </div>
         </div>
