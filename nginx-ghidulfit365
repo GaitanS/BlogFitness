@@ -31,22 +31,15 @@ server {
     }
 
     location /static/ {
-        alias /path/to/your/static/;
+        alias /var/www/ghidulfit365/staticfiles/;
         expires 30d;
         add_header Cache-Control "public, no-transform";
     }
 
     location /media/ {
-        alias /path/to/your/media/;
+        alias /var/www/ghidulfit365/media/;
         expires 30d;
         add_header Cache-Control "public, no-transform";
-    }
-
-    location = /ads.txt {
-        alias /var/www/ghidulfit365/ads.txt;  # Ajustează calea în funcție de structura ta
-        access_log off;
-        add_header Cache-Control "no-cache";
-        add_header Content-Type "text/plain";
     }
 
     location / {
@@ -57,4 +50,5 @@ server {
         proxy_pass http://unix:/run/gunicorn.sock;
     }
 }
+
 
