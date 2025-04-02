@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn daemon for GhidulFit365
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/ghidulfit365
+ExecStart=/var/www/ghidulfit365/venv/bin/gunicorn --config /var/www/ghidulfit365/gunicorn.conf.py fitness_blog.wsgi:application
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

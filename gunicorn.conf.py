@@ -2,7 +2,7 @@
 import multiprocessing
 
 # Server socket
-bind = "unix:/run/gunicorn.sock"
+bind = "0.0.0.0:8000"
 workers = multiprocessing.cpu_count() * 2 + 1
 
 # Logging
@@ -12,10 +12,6 @@ loglevel = "info"
 
 # Process naming
 proc_name = "ghidulfit365"
-
-# SSL
-keyfile = "/etc/letsencrypt/live/ghidulfit365.ro/privkey.pem"
-certfile = "/etc/letsencrypt/live/ghidulfit365.ro/fullchain.pem"
 
 # Worker timeout
 timeout = 30

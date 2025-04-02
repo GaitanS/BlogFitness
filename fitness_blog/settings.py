@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,15 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s&pc@33ewad(u5j-hul7ewq6=(d!50t@(crbw(2&wtusw4=xc@'
+# Use environment variable or generate a random key
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Set DEBUG = True for local development
-DEBUG = True
+# Set DEBUG = False for production
+DEBUG = False
 
 # Setări de securitate pentru producție
 # Add 'localhost' and '127.0.0.1' for local development
-ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro', 'localhost', '127.0.0.1', '69.62.119.15']
 
 # Setări SSL/HTTPS (Only enable in production when DEBUG is False)
 if not DEBUG:
@@ -165,8 +167,12 @@ WSGI_APPLICATION = 'fitness_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ghidulfit365',
+        'USER': 'ghidulfit365_user',
+        'PASSWORD': 'adrianvilea2025',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -213,8 +219,7 @@ STATICFILES_DIRS = [
 
 # Media files
 MEDIA_URL = '/media/'
-# Point MEDIA_ROOT to the local media directory for development
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = '/var/www/ghidulfit365/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
