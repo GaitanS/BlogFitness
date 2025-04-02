@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Category, Article, AdSenseLocation, NewsletterSubscriber
+from .models import Category, Article, AdSenseLocation, NewsletterSubscriber, SiteSettings
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
@@ -66,6 +66,22 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(AdSenseLocation, AdSenseLocationAdmin)
 admin.site.register(NewsletterSubscriber, NewsletterSubscriberAdmin)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'phone', 'email')
+    fieldsets = (
+        ('Contact', {
+            'fields': ('phone', 'email', 'address')
+        }),
+        ('Rețele sociale', {
+            'fields': ('facebook_url', 'instagram_url', 'youtube_url')
+        }),
+    )
+
+    class Meta:
+        verbose_name = 'Setări Site'
+        verbose_name_plural = 'Setări Site'
+
+admin.site.register(SiteSettings, SiteSettingsAdmin)
 
 # Personalizare titluri admin
 admin.site.site_header = 'Administrare Blog Fitness'

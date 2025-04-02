@@ -73,3 +73,19 @@ class AdSenseLocation(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SiteSettings(models.Model):
+    phone = models.CharField(max_length=20, verbose_name='Telefon', blank=True)
+    email = models.EmailField(verbose_name='Email', blank=True)
+    address = models.TextField(verbose_name='Adresă', blank=True)
+    facebook_url = models.URLField(verbose_name='Link Facebook', blank=True)
+    instagram_url = models.URLField(verbose_name='Link Instagram', blank=True)
+    youtube_url = models.URLField(verbose_name='Link YouTube', blank=True)
+
+    class Meta:
+        verbose_name = 'Setări Site'
+        verbose_name_plural = 'Setări Site'
+
+    def __str__(self):
+        return 'Setări site'

@@ -88,6 +88,21 @@ a:hover {
     .navbar > .container {
         position: relative;
     }
+    
+    /* Center calculator elements on mobile */
+    .calculator-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .calculator-btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 0.5rem auto;
+    }
 
     .navbar-toggler {
         border: none;

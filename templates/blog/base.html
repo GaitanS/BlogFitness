@@ -118,13 +118,26 @@
                 <div class="col-md-4">
                     <h5>Contact</h5>
                     <ul class="list-unstyled">
-                        <li><i class="fas fa-envelope me-2"></i> contact@fitnessblog.ro</li>
-                        <li><i class="fas fa-phone me-2"></i> +40 722 123 456</li>
+                        {% if site_settings.email %}
+                            <li><i class="fas fa-envelope me-2"></i> {{ site_settings.email }}</li>
+                        {% endif %}
+                        {% if site_settings.phone %}
+                            <li><i class="fas fa-phone me-2"></i> {{ site_settings.phone }}</li>
+                        {% endif %}
+                        {% if site_settings.address %}
+                            <li><i class="fas fa-map-marker-alt me-2"></i> {{ site_settings.address }}</li>
+                        {% endif %}
                     </ul>
                     <div class="social-icons mt-3">
-                        <a href="#" class="me-2"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="me-2"><i class="fab fa-youtube"></i></a>
+                        {% if site_settings.facebook_url %}
+                            <a href="{{ site_settings.facebook_url }}" class="me-2" target="_blank"><i class="fab fa-facebook"></i></a>
+                        {% endif %}
+                        {% if site_settings.instagram_url %}
+                            <a href="{{ site_settings.instagram_url }}" class="me-2" target="_blank"><i class="fab fa-instagram"></i></a>
+                        {% endif %}
+                        {% if site_settings.youtube_url %}
+                            <a href="{{ site_settings.youtube_url }}" class="me-2" target="_blank"><i class="fab fa-youtube"></i></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

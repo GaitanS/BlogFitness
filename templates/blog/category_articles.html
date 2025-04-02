@@ -40,12 +40,7 @@
 </div>
 {% endif %}
 
-<!-- Middle Page AdSense -->
-{% if adsense_locations.middle_page %}
-<div class="adsense-container container my-4">
-    {{ adsense_locations.middle_page|safe }}
-</div>
-{% endif %}
+
 
 <!-- Articles Grid -->
 <section class="articles-grid-section py-5">
@@ -115,11 +110,4 @@
         {% endif %}
     </div>
 </section>
-
-<!-- AdSense Before Footer -->
-{% if adsense_locations.before_footer %}
-<div class="adsense-container container my-4">
-    {{ adsense_locations.before_footer|safe }}
-</div>
-{% endif %}
 {% endblock %}
