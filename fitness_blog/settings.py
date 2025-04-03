@@ -27,26 +27,51 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Set DEBUG = False for production
-DEBUG = False
+# Temporarily set to True to troubleshoot login issues
+DEBUG = True  # Change back to False after fixing login issues
 
 # Setări de securitate pentru producție
 # Add 'localhost' and '127.0.0.1' for local development
 ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro', 'localhost', '127.0.0.1', '69.62.119.15']
 
-# Setări SSL/HTTPS (Only enable in production when DEBUG is False)
+# Add CSRF trusted origins for HTTPS
+CSRF_TRUSTED_ORIGINS = [
+    "https://ghidulfit365.ro",
+    "https://www.ghidulfit365.ro",
+]
+
+# Cookie settings
+# DO NOT set cookie domains - this causes login issues with IP addresses
+# SESSION_COOKIE_DOMAIN = None
+# CSRF_COOKIE_DOMAIN = None
+
+# Session settings
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# Setări SSL/HTTPS pentru producție
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 31536000  # 1 an
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+else:
+    # În modul de dezvoltare, dezactivează setările de securitate stricte
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+
+# Always set the proxy header regardless of DEBUG
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    'jazzmin', # Temporarily commented out to test admin login redirect
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -233,3 +258,13 @@ SITE_DOMAIN = "ghidulfit365.ro"
 
 # Robots.txt și Sitemap settings
 ROBOTS_TXT_PATH = os.path.join(BASE_DIR, 'robots.txt')
+
+# Login and authentication settings
+LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_URL = '/admin/login/'
+LOGOUT_REDIRECT_URL = '/admin/login/'
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]

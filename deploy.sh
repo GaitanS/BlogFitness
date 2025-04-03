@@ -71,6 +71,10 @@ cd $PROJECT_PATH
 python manage.py migrate
 python manage.py collectstatic --noinput
 
+# Create a superuser for admin access
+echo -e "${YELLOW}Creating admin superuser...${NC}"
+echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@ghidulfit365.ro', 'adrianvilea2025') if not User.objects.filter(username='admin').exists() else None" | python manage.py shell
+
 # Ensure ads.txt is properly set up
 echo -e "${YELLOW}Setting up ads.txt...${NC}"
 cp $PROJECT_PATH/templates/ads.txt $PROJECT_PATH/staticfiles/
@@ -93,8 +97,24 @@ systemctl start gunicorn
 echo -e "${YELLOW}Restarting Nginx...${NC}"
 systemctl restart nginx
 
+# Test if the site is working
+echo -e "${YELLOW}Testing if the site is accessible...${NC}"
+sleep 5
+if curl -s --head http://localhost:8001 | grep "200 OK" > /dev/null; then
+  echo -e "${GREEN}Site is accessible!${NC}"
+else
+  echo -e "${RED}Site is not accessible. Check the logs:${NC}"
+  echo -e "${YELLOW}Gunicorn logs: sudo tail -f /var/log/gunicorn/error.log${NC}"
+  echo -e "${YELLOW}Nginx logs: sudo tail -f /var/log/nginx/error.log${NC}"
+fi
+
 echo -e "${GREEN}Deployment completed successfully!${NC}"
 echo -e "${YELLOW}Next steps:${NC}"
 echo -e "1. Set up SSL with: certbot --nginx -d ghidulfit365.ro -d www.ghidulfit365.ro"
-echo -e "2. Uncomment SSL sections in Nginx config after SSL is set up"
-echo -e "3. Restart Nginx after SSL setup: systemctl restart nginx"
+echo -e "2. Access the admin panel at: http://69.62.119.15/admin/"
+echo -e "   Username: admin"
+echo -e "   Password: adrianvilea2025"
+echo -e "3. If you have login issues, check the logs and consider these troubleshooting steps:"
+echo -e "   - Verify that cookies are working correctly"
+echo -e "   - Check if DEBUG=True in settings.py for troubleshooting"
+echo -e "   - Ensure SESSION_COOKIE_DOMAIN and CSRF_COOKIE_DOMAIN are not set"

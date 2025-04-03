@@ -9,6 +9,15 @@ WorkingDirectory=/var/www/ghidulfit365
 ExecStart=/var/www/ghidulfit365/venv/bin/gunicorn --config /var/www/ghidulfit365/gunicorn.conf.py fitness_blog.wsgi:application
 Restart=on-failure
 RestartSec=5s
+Environment="DJANGO_DEBUG=False"
+
+# Increase timeout for startup
+TimeoutStartSec=600
+
+# Log to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=gunicorn
 
 [Install]
 WantedBy=multi-user.target
