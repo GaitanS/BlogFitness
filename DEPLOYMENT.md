@@ -12,43 +12,38 @@ Acest document conține instrucțiuni detaliate pentru deployment-ul aplicației
 
 ## Pași de Deployment
 
-### 1. Actualizează sistemul
+### Metoda recomandată: Crearea unui proiect Django nou
+
+Din experiență, cea mai fiabilă metodă este să creăm un proiect Django nou și să configurăm totul de la zero. Această abordare evită multe probleme potențiale cu structura proiectului sau configurația.
 
 ```bash
+# 1. Actualizează sistemul
 apt update && apt upgrade -y
-```
 
-### 2. Instalează dependențele necesare
+# 2. Instalează dependențele necesare
+apt install -y git python3 python3-pip python3-venv postgresql postgresql-contrib nginx certbot python3-certbot-nginx python3-dev libpq-dev gcc build-essential
 
-```bash
-apt install -y git python3 python3-pip python3-venv postgresql postgresql-contrib nginx certbot python3-certbot-nginx
-```
-
-#### Dependențe pentru compilarea pachetelor Python
-
-Pentru a evita erori la instalarea pachetelor Python care necesită compilare (cum ar fi `psycopg2`), instalează următoarele dependențe:
-
-```bash
-apt install -y python3-dev libpq-dev gcc build-essential
-```
-
-### 3. Creează directorul pentru proiect și clonează repository-ul
-
-```bash
+# 3. Creează directorul pentru proiect
 mkdir -p /var/www/ghidulfit365
-git clone https://github.com/GaitanS/BlogFitness.git /tmp/BlogFitness
-cp -r /tmp/BlogFitness/* /var/www/ghidulfit365/
-cp -r /tmp/BlogFitness/.* /var/www/ghidulfit365/ 2>/dev/null || true
+cd /var/www/ghidulfit365
+
+# 4. Creează și activează mediul virtual
+python3 -m venv venv
+source venv/bin/activate
+
+# 5. Instalează Django și alte dependențe
+pip install django gunicorn psycopg2-binary django-jazzmin django-ckeditor Pillow
+
+# 6. Creează un proiect Django nou
+django-admin startproject fitness_blog .
+
+# 7. Creează o aplicație blog
+python manage.py startapp blog
 ```
 
-### 4. Creează directoarele necesare
+Acum poți configura proiectul nou creat și apoi să copiezi conținutul (modele, view-uri, template-uri) din repository-ul original.
 
-```bash
-mkdir -p /var/www/ghidulfit365/media
-mkdir -p /var/log/gunicorn
-```
-
-### 5. Configurează baza de date PostgreSQL
+### 8. Configurează baza de date PostgreSQL
 
 ```bash
 sudo -u postgres psql -c "CREATE DATABASE ghidulfit365;"
@@ -73,44 +68,9 @@ Dacă tot întâmpini probleme cu permisiunile, poți încerca să faci utilizat
 sudo -u postgres psql -c "ALTER DATABASE ghidulfit365 OWNER TO ghidulfit365_user;"
 ```
 
-Sau, în cazuri extreme, poți acorda temporar drepturi de superuser utilizatorului (nu este recomandat pentru producție):
+### 9. Configurează fișierul settings.py
 
-```bash
-sudo -u postgres psql -c "ALTER USER ghidulfit365_user WITH SUPERUSER;"
-```
-
-#### Probleme la instalarea psycopg2
-
-Dacă întâmpini erori la instalarea pachetului `psycopg2` (cum ar fi `error: command '/usr/bin/x86_64-linux-gnu-gcc' failed with exit code 1`), asigură-te că ai instalat dependențele necesare:
-
-```bash
-apt install -y python3-dev libpq-dev gcc
-```
-
-Alternativ, poți instala versiunea binară precompilată:
-
-```bash
-pip install psycopg2-binary
-```
-
-### 6. Creează și activează mediul virtual Python
-
-```bash
-cd /var/www/ghidulfit365
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 7. Instalează dependențele Python
-
-```bash
-pip install -r requirements.txt
-pip install gunicorn psycopg2-binary
-```
-
-### 8. Configurează fișierul settings.py pentru producție
-
-Editează fișierul `/var/www/ghidulfit365/fitness_blog/settings.py` și asigură-te că conține următoarele setări:
+Editează fișierul `/var/www/ghidulfit365/fitness_blog/settings.py` pentru a include setările necesare pentru baza de date și alte configurări:
 
 ```python
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -167,6 +127,77 @@ MEDIA_ROOT = '/var/www/ghidulfit365/media'
 ```bash
 python manage.py migrate
 python manage.py createsuperuser
+```
+
+#### Probleme cu comanda createsuperuser
+
+Dacă întâmpini eroarea `Unknown command: 'createsuperuser'` și comanda nu apare în lista de comenzi disponibile când rulezi `python manage.py help`, există o problemă cu instalarea sau configurarea Django. Verifică următoarele:
+
+1. **Verifică dacă aplicația `django.contrib.auth` este inclusă în `INSTALLED_APPS`**:
+
+```bash
+cat fitness_blog/settings.py | grep -A 10 "INSTALLED_APPS"
+```
+
+Asigură-te că lista include `'django.contrib.auth'`:
+
+```python
+INSTALLED_APPS = [
+    ...
+    'django.contrib.auth',
+    ...
+]
+```
+
+2. **Verifică dacă fișierul settings.py este configurat corect**:
+
+Dacă ai clonat repository-ul în `/var/www/ghidulfit365` dar structura proiectului este diferită, este posibil ca Django să nu găsească fișierul settings.py corect. Verifică structura proiectului:
+
+```bash
+ls -la
+find . -name "settings.py"
+```
+
+3. **Recreează proiectul Django de la zero**:
+
+Dacă tot întâmpini probleme, poți crea un proiect Django nou și apoi să copiezi fișierele necesare:
+
+```bash
+cd /tmp
+django-admin startproject tempproject
+cd /var/www/ghidulfit365
+cp /tmp/tempproject/manage.py .
+cp -r /tmp/tempproject/tempproject/* fitness_blog/
+```
+
+Acum editează fișierul settings.py pentru a include aplicațiile și setările tale.
+
+4. **Asigură-te că fiecare comandă este rulată separat**:
+
+```bash
+# Corect - fiecare comandă pe o linie separată
+python manage.py migrate
+python manage.py createsuperuser
+
+# Incorect - ambele comenzi pe aceeași linie
+python manage.py migrate python manage.py createsuperuser
+```
+
+#### Crearea unui superuser prin shell
+
+Alternativ, poți crea un superuser folosind shell-ul Django:
+
+```bash
+python manage.py shell
+```
+
+În shell-ul Python, execută:
+
+```python
+from django.contrib.auth import get_user_model
+User = get_user_model()
+User.objects.create_superuser('admin', 'admin@example.com', 'parola')
+exit()
 ```
 
 ### 10. Colectează fișierele statice
@@ -400,6 +431,53 @@ curl -I https://ghidulfit365.ro
 ```
 
 ## Depanare
+
+### Probleme cu comenzile Django
+
+Dacă comenzile Django precum `migrate`, `createsuperuser` sau `collectstatic` nu sunt recunoscute, verifică următoarele:
+
+#### 1. Mediul virtual este activat
+
+Asigură-te că mediul virtual este activat (ar trebui să vezi `(venv)` la începutul promptului):
+
+```bash
+source venv/bin/activate
+```
+
+#### 2. Django este instalat corect
+
+Verifică dacă Django este instalat în mediul virtual:
+
+```bash
+pip list | grep Django
+```
+
+Dacă nu este instalat, instalează-l:
+
+```bash
+pip install Django==5.0.2
+```
+
+#### 3. Structura proiectului este corectă
+
+Asigură-te că te afli în directorul care conține fișierul `manage.py`:
+
+```bash
+ls -la | grep manage.py
+```
+
+#### 4. Comenzile sunt executate separat
+
+Asigură-te că fiecare comandă este executată separat, nu pe aceeași linie:
+
+```bash
+# Corect
+python manage.py migrate
+python manage.py createsuperuser
+
+# Incorect
+python manage.py migrate python manage.py createsuperuser
+```
 
 ### Probleme de autentificare în panoul de administrare
 
