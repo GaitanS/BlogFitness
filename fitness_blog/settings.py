@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['ghidulfit365.ro', 'www.ghidulfit365.ro', 'localhost', '127.0.0
 CSRF_TRUSTED_ORIGINS = [
     "https://ghidulfit365.ro",
     "https://www.ghidulfit365.ro",
+    "http://69.62.119.15",
 ]
 
 # Cookie settings
@@ -67,6 +68,7 @@ else:
 
 # Always set the proxy header regardless of DEBUG
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
 
 # Application definition
 
@@ -268,3 +270,16 @@ LOGOUT_REDIRECT_URL = '/admin/login/'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+# Session settings
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False  # Set to False for development
+
+# CSRF settings
+CSRF_COOKIE_HTTPONLY = False  # Set to False to allow JavaScript access
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = False  # Set to False for development
