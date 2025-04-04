@@ -21,7 +21,15 @@ apt update && apt upgrade -y
 ### 2. Instalează dependențele necesare
 
 ```bash
-apt install -y git python3 python3-pip python3-venv postgresql postgresql-contrib nginx certbot python3-certbot-nginx python3-dev libpq-dev gcc
+apt install -y git python3 python3-pip python3-venv postgresql postgresql-contrib nginx certbot python3-certbot-nginx
+```
+
+#### Dependențe pentru compilarea pachetelor Python
+
+Pentru a evita erori la instalarea pachetelor Python care necesită compilare (cum ar fi `psycopg2`), instalează următoarele dependențe:
+
+```bash
+apt install -y python3-dev libpq-dev gcc build-essential
 ```
 
 ### 3. Creează directorul pentru proiect și clonează repository-ul
@@ -49,7 +57,40 @@ sudo -u postgres psql -c "ALTER ROLE ghidulfit365_user SET client_encoding TO 'u
 sudo -u postgres psql -c "ALTER ROLE ghidulfit365_user SET default_transaction_isolation TO 'read committed';"
 sudo -u postgres psql -c "ALTER ROLE ghidulfit365_user SET timezone TO 'UTC';"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ghidulfit365 TO ghidulfit365_user;"
+```
+
+#### Important: Acordă permisiuni pentru schema public
+
+Este esențial să acorzi permisiuni pentru schema public utilizatorului bazei de date. Fără aceste permisiuni, vei primi eroarea `permission denied for schema public` când încerci să aplici migrările Django:
+
+```bash
 sudo -u postgres psql -d ghidulfit365 -c "GRANT ALL ON SCHEMA public TO ghidulfit365_user;"
+```
+
+Dacă tot întâmpini probleme cu permisiunile, poți încerca să faci utilizatorul proprietar al bazei de date:
+
+```bash
+sudo -u postgres psql -c "ALTER DATABASE ghidulfit365 OWNER TO ghidulfit365_user;"
+```
+
+Sau, în cazuri extreme, poți acorda temporar drepturi de superuser utilizatorului (nu este recomandat pentru producție):
+
+```bash
+sudo -u postgres psql -c "ALTER USER ghidulfit365_user WITH SUPERUSER;"
+```
+
+#### Probleme la instalarea psycopg2
+
+Dacă întâmpini erori la instalarea pachetului `psycopg2` (cum ar fi `error: command '/usr/bin/x86_64-linux-gnu-gcc' failed with exit code 1`), asigură-te că ai instalat dependențele necesare:
+
+```bash
+apt install -y python3-dev libpq-dev gcc
+```
+
+Alternativ, poți instala versiunea binară precompilată:
+
+```bash
+pip install psycopg2-binary
 ```
 
 ### 6. Creează și activează mediul virtual Python
@@ -199,7 +240,7 @@ Creează fișierul `/etc/nginx/sites-available/ghidulfit365`:
 server {
     listen 80;
     server_name ghidulfit365.ro www.ghidulfit365.ro;
-    
+
     # Redirect HTTP to HTTPS
     return 301 https://$host$request_uri;
 }
@@ -208,7 +249,7 @@ server {
 server {
     listen 80;
     server_name 69.62.119.15;
-    
+
     # For initial setup without SSL
     location /static/ {
         alias /var/www/ghidulfit365/staticfiles/;
@@ -392,10 +433,31 @@ Dacă Nginx returnează eroarea 502 Bad Gateway, verifică dacă Gunicorn ruleaz
 
 ### Probleme cu baza de date
 
-Dacă întâmpini erori legate de baza de date, verifică dacă utilizatorul bazei de date are permisiunile necesare:
+Dacă întâmpini erori legate de baza de date, verifică următoarele:
+
+#### 1. Permisiuni pentru schema public
+
+Eroarea `permission denied for schema public` apare când utilizatorul bazei de date nu are permisiuni pentru schema public:
 
 ```bash
 sudo -u postgres psql -d ghidulfit365 -c "GRANT ALL ON SCHEMA public TO ghidulfit365_user;"
+```
+
+#### 2. Proprietarul bazei de date
+
+Dacă tot întâmpini probleme, poți face utilizatorul proprietar al bazei de date:
+
+```bash
+sudo -u postgres psql -c "ALTER DATABASE ghidulfit365 OWNER TO ghidulfit365_user;"
+```
+
+#### 3. Probleme cu migrările
+
+Dacă migrările eșuează cu erori legate de tabele care există deja, poți încerca să resetezi migrările pentru o aplicație specifică:
+
+```bash
+python manage.py migrate --fake sessions zero
+python manage.py migrate sessions
 ```
 
 ## Actualizarea aplicației
