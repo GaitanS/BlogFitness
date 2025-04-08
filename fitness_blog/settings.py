@@ -73,7 +73,7 @@ USE_X_FORWARDED_HOST = True
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin', # Temporarily commented out to test admin login redirect
+    # 'jazzmin', # Removed to revert to standard Django admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,76 +85,9 @@ INSTALLED_APPS = [
     'ckeditor', # Added for rich text editor
 ]
 
-# Jazzmin settings
-JAZZMIN_SETTINGS = {
-    # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Fitness Blog Admin",
-    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Fitness Blog",
-    # Welcome text on the login screen
-    "welcome_sign": "Bine ai venit în panoul de administrare",
-    # Copyright on the footer
-    "copyright": "Fitness Blog",
-    # List of model admins to search from the search bar, search bar omitted if excluded
-    "search_model": ["blog.Article", "blog.Category", "blog.NewsletterSubscriber"],
-    # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
-    "user_avatar": None,
-    # Whether to display the side menu
-    "show_sidebar": True,
-    # Whether to aut expand the menu
-    "navigation_expanded": True,
-    # Custom icons for side menu apps/models
-    "icons": {
-        "blog.Category": "fas fa-folder",
-        "blog.Article": "fas fa-newspaper",
-        "blog.NewsletterSubscriber": "fas fa-envelope",
-        "blog.AdSenseLocation": "fas fa-ad",
-    },
-    # Icons that are used when one is not manually specified
-    "default_icon_parents": "fas fa-chevron-circle-right",
-    "default_icon_children": "fas fa-circle",
-    # Use a more user-friendly datetime format
-    "show_ui_builder": True,
-    # Custom CSS
-    "custom_css": None,
-    # Custom JS
-    "custom_js": None,
-    # Show charts on dashboard
-    "show_chart_on_dashboard": True,
-}
+# Jazzmin settings removed
 
-# Jazzmin UI Tweaks
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
-    "brand_colour": "navbar-purple",
-    "accent": "accent-purple",
-    "navbar": "navbar-dark",
-    "no_navbar_border": False,
-    "navbar_fixed": False,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
-    "sidebar": "sidebar-dark-purple",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": True,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
-    "theme": "default",
-    "dark_mode_theme": None,
-    "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    }
-}
+# Jazzmin UI Tweaks removed
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
