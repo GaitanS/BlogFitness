@@ -73,7 +73,7 @@ USE_X_FORWARDED_HOST = True
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jazzmin', # Removed to revert to standard Django admin
+    # 'jazzmin',  # Comentează sau elimină această linie
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,10 +82,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'blog',
-    'ckeditor', # Added for rich text editor
+    'ckeditor',
 ]
 
-# Jazzmin settings removed
+# Elimină sau comentează setările Jazzmin
+# JAZZMIN_SETTINGS = {
+#     "site_title": "Fitness Blog Admin",
+#     "site_header": "Fitness Blog",
+#     "welcome_sign": "Bine ai venit în panoul de administrare",
+#     "copyright": "Fitness Blog",
+# }
 
 # Jazzmin UI Tweaks removed
 
